@@ -1,0 +1,45 @@
+import java.util.Arrays;
+
+public class main
+{
+    public static void main(String[] args)
+    {
+        int[] arr = {1,23,56,2,67,8,7,21,99,123,5,3,29};
+        int[] result = radixSort(arr);
+
+        System.out.println(Arrays.toString(result));
+
+    }
+    //For Radix Sort, Find Max Element
+    public static int getMax(int[] arr)
+    {
+        int max = arr[0];
+        for(int i=1; i<arr.length; i++)
+        {
+            if(arr[i]>max) max = arr[i];
+        }
+        return max;
+    }
+    public static void countingSort(int[] arr, int place)
+    {
+        int[] output = new int[arr.length+1];
+        int[] count = new int [10];
+
+        for(int i=0; i<arr.length; i++) count[(arr[i]/place)%10]++;
+        for(int i=1; i<10; i++) count[i]+=count[i-1];
+
+        for(int i = arr.length-1; i>=0; i--)
+        {
+            output[count[(arr[i]/place)%10]-1] = arr[i];
+            count[(arr[i]/place)%10]--;
+        }
+
+        for(int i=0; i< arr.length; i++) arr[i] = output[i];
+    }
+    public static int[] radixSort(int[] arr)
+    {
+        int max = getMax(arr);
+        for(int place =1; max/place>0; place*=10) countingSort(arr,place);
+        return arr;
+    }
+}

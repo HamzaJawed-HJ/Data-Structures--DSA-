@@ -1,0 +1,45 @@
+package com.company;
+
+import java.util.Arrays;
+
+public class Main {
+
+    public static void main(String[] args) {
+        int[] Array = {5,4,3,2,1};
+        SORT(Array);
+        System.out.println(Arrays.toString(Array));
+
+    }
+
+    public static void SORT(int[]Array) {
+        if(Array.length<2)
+            return;
+        int middle = Array.length/2;
+        int []left = new int [middle];
+        for (int i=0;i<middle;i++)
+            left[i] = Array[i];
+        int[] right = new int [Array.length- middle];
+        for (int i = middle;i< Array.length;i++)
+            right[i-middle]= Array[i];
+
+        SORT(left);
+        SORT(right);
+
+        merge(left,right,Array);
+    }
+
+    public static void merge (int[] left,int[]right,int[]result){
+        int i= 0, j = 0 , k=0;
+        while (i<left.length&& j<right.length)
+        {
+            if (left[i]<= right[j])
+                result[k++]= left[i++];
+            else
+                result[k++]= right[j++];
+        }
+        while (i<left.length)
+            result[k++]= left[i++];
+        while (j<right.length)
+            result[k++] = right[j++];
+    }
+    }
